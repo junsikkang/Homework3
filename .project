@@ -20,4 +20,21 @@
 		<nature>org.eclipse.m2e.core.maven2Nature</nature>
 		<nature>org.eclipse.jdt.core.javanature</nature>
 	</natures>
+	<linkedResources>
+		<link>
+			<name>src/main/java/core/api/ICourseManager.java</name>
+			<type>1</type>
+			<location>C:/Users/Junsik/git/Homework3/src/main/java/core/api/ICourseManager.java</location>
+		</link>
+		<link>
+			<name>src/main/test/core/test/TestCourseManager.java</name>
+			<type>1</type>
+			<location>C:/Users/Junsik/git/Homework3/src/main/test/core/test/TestCourseManager.java</location>
+		</link>
+		<link>
+			<name>src/main/java/core/api/impl/CourseManager.java</name>
+			<type>1</type>
+			<location>C:/Users/Junsik/git/Homework3/src/main/java/core/api/impl/CourseManager.java</location>
+		</link>
+	</linkedResources>
 </projectDescription>

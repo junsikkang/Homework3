@@ -64,7 +64,7 @@ public class TestInstructor {
 	public void testAddHomework5() {
 		this.admin.createClass("Class1", 2017, "Instructor1", 20);
 		this.instructor.addHomework("Instructor1", "Class2", 2017, "HW1");
-		assertFalse(this.instructor.homeworkExists("Class1", 2017, "HW1"));
+		assertFalse(this.instructor.homeworkExists("Class2", 2017, "HW1"));
 	}
 	
 	// Test assignGrade
@@ -75,9 +75,8 @@ public class TestInstructor {
 		this.instructor.addHomework("Instructor1", "Class1", 2017, "HW1");
 		this.student.submitHomework("Student1", "HW1", "Solution", "Class1", 2017);
 		this.instructor.assignGrade("Instructor1", "Class1", 2017, "HW1", "Student1", 90);
-		//assertEquals(90, this.instructor.getGrade("Class1", 2017, "HW1", "Student1"));
 		Integer grade = this.instructor.getGrade("Class1", 2017, "HW1", "Student1");
-		assertTrue(grade == new Integer(90));
+		assertTrue(grade.equals(new Integer(90)));
 	}
 	
 	// Should not assignGrade properly (wrong instructor)
@@ -87,22 +86,19 @@ public class TestInstructor {
 		this.instructor.addHomework("Instructor1", "Class1", 2017, "HW1");
 		this.student.submitHomework("Student1", "HW1", "Solution", "Class1", 2017);
 		this.instructor.assignGrade("Instructor2", "Class1", 2017, "HW1", "Student1", 90);
-		//assertEquals(90, this.instructor.getGrade("Class1", 2017, "HW1", "Student1"));
 		Integer grade = this.instructor.getGrade("Class1", 2017, "HW1", "Student1");
-		assertFalse(grade == new Integer(90));
+		assertFalse(grade.equals(new Integer(90)));
 	}
 	
 	// Should not assignGrade properly (HW not assigned)
-	// ****
 	@Test
 	public void testAssignGrade3() {
 		this.admin.createClass("Class1", 2017, "Instructor1", 20);
 		this.instructor.addHomework("Instructor1", "Class1", 2017, "HW2");
 		this.student.submitHomework("Student1", "HW1", "Solution", "Class1", 2017);
 		this.instructor.assignGrade("Instructor1", "Class1", 2017, "HW1", "Student1", 90);
-		//assertEquals(90, this.instructor.getGrade("Class1", 2017, "HW1", "Student1"));
 		Integer grade = this.instructor.getGrade("Class1", 2017, "HW1", "Student1");
-		assertFalse(grade == new Integer(90));
+		assertNull(grade);
 	}
 	
 	// Should not assignGrade properly (HW not submitted by student)
@@ -111,12 +107,29 @@ public class TestInstructor {
 		this.admin.createClass("Class1", 2017, "Instructor1", 20);
 		this.instructor.addHomework("Instructor1", "Class1", 2017, "HW1");
 		this.instructor.assignGrade("Instructor1", "Class1", 2017, "HW1", "Student1", 90);
-		//assertEquals(90, this.instructor.getGrade("Class1", 2017, "HW1", "Student1"));
 		Integer grade = this.instructor.getGrade("Class1", 2017, "HW1", "Student1");
-		assertFalse(grade == new Integer(90));
+		assertFalse(grade.equals(new Integer(90)));
 	}
 	
 	// Wrong class
+	@Test
+	public void testAssignGrade5() {
+		this.admin.createClass("Class1", 2017, "Instructor1", 20);
+		this.instructor.addHomework("Instructor1", "Class1", 2017, "HW1");
+		this.student.submitHomework("Student1", "HW1", "Solution", "Class1", 2017);
+		this.instructor.assignGrade("Instructor1", "Class2", 2017, "HW1", "Student1", 90);
+		Integer grade = this.instructor.getGrade("Class2", 2017, "HW1", "Student1");
+		assertNull(grade);
+	}
 	
 	// Wrong year
+	@Test
+	public void testAssignGrade6() {
+		this.admin.createClass("Class1", 2017, "Instructor1", 20);
+		this.instructor.addHomework("Instructor1", "Class1", 2017, "HW1");
+		this.student.submitHomework("Student1", "HW1", "Solution", "Class1", 2017);
+		this.instructor.assignGrade("Instructor1", "Class1", 2018, "HW1", "Student1", 90);
+		Integer grade = this.instructor.getGrade("Class1", 2018, "HW1", "Student1");
+		assertNull(grade);
+	}
 }
